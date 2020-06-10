@@ -1,17 +1,10 @@
-param ([string]$workspace = "",$orgname = "")
+param ([string]$workspace = "HCM-Workspace")
 $workspacename = "$workspace (RD)"
-$userappdata = "$env:appdata"
-$appdatapath = "$userappdata\Microsoft\Windows\Start Menu\Programs\$workspacename"
-$userprofile = "$env:USERProfile"
-$onedrivedesktop = "$userprofile\OneDrive - $orgname\Desktop"
+$appdatapath = "$env:appdata\Microsoft\Windows\Start Menu\Programs\$workspacename"
+$userdesktop = [Environment]::GetFolderPath("Desktop")
+$Shortcutfile = "$userdesktop\$workspacename.lnk"
 
 if (Test-Path $appdatapath) {
-
-    if ((Test-Path $onedrivedesktop)) { 
-        $ShortcutFile = "$onedrivedesktop\$workspacename.lnk" 
-    } else { 
-        $Shortcutfile = "$userprofile\Desktop\$workspacename.lnk"
-    }
 
     if (!(Test-Path $ShortcutFile)) {
         $WScriptShell = New-Object -ComObject WScript.Shell
